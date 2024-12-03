@@ -51,6 +51,17 @@ try:
             WHERE id % 3 = 1
         )
     ''')
+    try:
+        conn = sqlite3.connect('not_telegram.db')
+        cursor = conn.cursor()
+
+        cursor.execute("DELETE FROM Users WHERE id = ?", (6,))
+
+        conn.commit()
+        print("Запись с id=6 успешно удалена.")
+
+    except sqlite3.Error as e:
+        print(f"Ошибка базы данных: {e}")
 
     # Выборка всех записей, где возраст не равен 60
     cursor.execute('''
